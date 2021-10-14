@@ -50,3 +50,13 @@ Optional = true
 ConfigKey = WheelTool
 DefaultValue = @self//tools/wheel_resolver
 Optional = true
+
+[PluginConfig "darwin_tags"]
+DefaultValue = ["macosx-10.6-intel-cp36", "any"]
+ConfigKey = DarwinTags
+Optional = true
+
+[PluginConfig "linux_tags"]
+DefaultValue = ["macosx-10.6-intel-cp36", "any"]
+ConfigKey = LinuxTags
+Optional = true

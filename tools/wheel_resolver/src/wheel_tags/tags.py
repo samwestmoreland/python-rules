@@ -43,6 +43,16 @@ def generate_tags_from_all_archs(archs):
     if len(archs) == 0:
         return tags.sys_tags()
 
+    if 'darwin' in archs:
+        if not CONFIG.PYTHON.DARWIN_TAGS:
+            logging.critical(f'{archs} specified but no tags found in config.')
+        return CONFIG.PYTHON.DARWIN_TAGS
+
+    if 'linux' in archs:
+        if not CONFIG.PYTHON.LINUX_TAGS:
+            logging.critical(f'{archs} specified but no tags found in config.')
+        return CONFIG.PYTHON.LINUX_TAGS
+
     result = []
     for arch in archs:
         result += list(tags.generic_tags(interpreter=None,
