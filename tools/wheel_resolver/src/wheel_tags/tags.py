@@ -4,6 +4,7 @@ Some methods for wheel fetching and selection
 
 import logging
 import os
+import sys
 from third_party.python.packaging.utils import parse_wheel_filename
 import third_party.python.packaging.tags as tags
 import third_party.python.distlib.locators as locators
@@ -17,12 +18,15 @@ def is_compatible(wheel, archs):
     """
     # Get the tag from the wheel we're checking
     _, _, _, tag = parse_wheel_filename(wheel)
+    print("got tag:", tag)
 
     # taglist is a list of tags that we've got either from the user
     # or we've auto-generated them for this system
     taglist = generate_tags_from_all_archs(archs)
+    print("taglist:", taglist)
 
     for system_tag in taglist:
+        print("comparing", system_tag, "and", tag)
         if system_tag in tag:
             return True
     return False
@@ -63,10 +67,11 @@ def get_url(urls, archs):
     # Loop through all the urls fetched from index and check them against
     # out system tags
     for url in urls:
+        print("url:", url)
         if is_wheel_file(url) and is_compatible(get_basename(url), archs):
             return url
 
-    logging.critical("Reached end of get_url() without finding anything")
+    sys.exit("Reached end of get_url() without finding anything")
 
 
 def get_download_urls(package, version=None):
@@ -88,4 +93,7 @@ def get_download_urls(package, version=None):
     if dist is not None:
         return dist.download_urls
 
-    return None
+    error_message = "did not find any URLs in index matching requirements:\n\tname: " + package
+    if version is not None:
+        error_message += "\n\tversion: " + version
+    sys.exit(error_message)

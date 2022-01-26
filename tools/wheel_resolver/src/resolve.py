@@ -5,6 +5,7 @@ Tool to resolve a wheel file from an index given a package name
 import logging
 import urllib.request
 import os
+import sys
 import tools.wheel_resolver.src.wheel_tags.tags as tg
 import argparse as argparse
 
@@ -43,10 +44,12 @@ def main():
 
     args = parser.parse_args()
 
+    # Require a package to be specified
+    if args.package is None:
+        sys.exit("Wheel resolver tool requires a package to be passed")
+
     # Fetch all available wheel urls from index
     urls = tg.get_download_urls(args.package, args.version)
-    if urls is None:
-        logging.critical("Couldn't find any matching urls in the index")
 
     result = tg.get_url(urls, args.arch)
 
