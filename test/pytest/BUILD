@@ -2,7 +2,8 @@ subinclude("//build_defs:python")
 
 package(
     python = {
-        "TEST_RUNNER": "pytest"
+        "TEST_RUNNER": "pytest",
+        "TESTRUNNER_DEPS": "//third_party/python:pytest_bootstrap",
     },
 )
 

@@ -8,9 +8,9 @@ python_test(
 
 gentest(
     name = "e2e_test",
-    data = ["//tools/wheel_resolver"],
+    data = ["//tools/wheel_resolver:wheel_resolver"],
     no_test_output = True,
-    test_cmd = "PKG=tensorflow; export OUTS=$PKG.whl; $DATA --package \"$PKG\"; \
+    test_cmd = "PKG=xcrypto; export OUTS=$PKG.whl; $DATA --package \"$PKG\" --version 1.3.1; \
                 if [[ -f \"$PKG\".whl ]]; then exit 0; else exit 1; fi;",
 )
 
@@ -19,14 +19,5 @@ gentest(
     data = ["//tools/wheel_resolver"],
     no_test_output = True,
     test_cmd = "true",
-    srcs = [":protobuf"],
-)
-
-python_wheel(
-    name = "protobuf",
-    outs = ["google"],
-    version = "3.18.1",
-    deps = [
-        "//third_party/python:six",
-    ],
+    srcs = ["//third_party/python:protobuf"],
 )
