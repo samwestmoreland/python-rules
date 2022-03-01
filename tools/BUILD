@@ -7,10 +7,13 @@ remote_file(
     out = "please_pex_tool",
 )
 
-# remote_file(
-#     name = "wheel_resolver",
-#     url = "https://www.github.com/please-build/python_rules/...",
-# )
+remote_file(
+    name = "wheel_resolver",
+    url = "https://github.com/please-build/python-rules/releases/download/v0.4.1/wheel_resolver.pex",
+    extract = False,
+    binary = True,
+    visibility = ["PUBLIC"],
+)
 
 remote_file(
     name = "arcat",
