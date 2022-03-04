@@ -66,7 +66,7 @@ python_wheel(
     deps = [":six"],
 )
 
-pip_library(
+python_wheel(
     name = "six",
     version = "1.14.0",
 )
@@ -164,12 +164,13 @@ python_multiversion_wheel(
     version = "5.5",
 )
 
-pip_library(
+python_wheel(
     name = "attrs",
     version = "19.3.0",
+    outs = ["attr"],
 )
 
-pip_library(
+python_wheel(
     name = "pluggy",
     version = "0.13.1",
     deps = [":importlib_metadata"],
@@ -181,28 +182,29 @@ pip_library(
     deps = [":zipp"],
 )
 
-pip_library(
+python_wheel(
     name = "zipp",
     version = "3.1.0",
 )
 
-pip_library(
+python_wheel(
     name = "py",
     version = "1.8.1",
 )
 
-pip_library(
+python_wheel(
     name = "funcsigs",
     version = "1.0.2",
 )
 
-pip_library(
+python_wheel(
     name = "pkg_resources",
     package_name = "setuptools",
     version = "57.0.0",
+    outs = ["setuptools"],
 )
 
-pip_library(
+python_wheel(
     name = "packaging",
     version = "21.3",
     deps = [
@@ -210,17 +212,17 @@ pip_library(
     ],
 )
 
-pip_library(
+python_wheel(
     name = "wheel_filename",
     version = "1.3.0",
 )
 
-pip_library(
+python_wheel(
     name = "pyparsing",
     version = "2.4.7",
 )
 
-pip_library(
+python_wheel(
     name = "more_itertools",
     version = "8.2.0",
 )
@@ -238,9 +240,10 @@ pip_library(
         ":py",
         ":six",
     ],
+    licences = ["..."],
 )
 
-pip_library(
+python_wheel(
     name = "behave",
     version = "1.2.6",
     deps = [
@@ -254,33 +257,33 @@ pip_library(
     ],
 )
 
-pip_library(
+python_wheel(
     name = "parse",
     version = "1.15.0",
 )
 
-pip_library(
+python_wheel(
     name = "parse_type",
     version = "0.5.2",
 )
 
-pip_library(
+python_wheel(
     name = "traceback2",
     licences = ["PSF"],
     version = "1.4.0",
 )
 
-pip_library(
+python_wheel(
     name = "enum34",
     version = "1.1.9",
 )
 
-pip_library(
+python_wheel(
     name = "win_unicode_console",
     version = "0.5",
 )
 
-pip_library(
+python_wheel(
     name = "colorama",
     version = "0.4.3",
 )
@@ -288,12 +291,13 @@ pip_library(
 python_wheel(
     name = "absl",
     package_name = "absl_py",
+    outs = ["absl"],
     hashes = ["c106f6ef0ae86c1273b0858b40ee15b99fad1c223838387b9d11446a033bbcb1"],
     version = "0.9.0",
     deps = [":six"],
 )
 
-pip_library(
+python_wheel(
     name = "portalocker",
     version = "1.7.0",
 )
@@ -305,7 +309,7 @@ pip_library(
     zip_safe = False,
 )
 
-pip_library(
+python_wheel(
     name = "keras_applications",
     test_only = True,
     version = "1.0.8",
@@ -314,7 +318,7 @@ pip_library(
     ],
 )
 
-pip_library(
+python_wheel(
     name = "opt_einsum",
     test_only = True,
     version = "3.2.1",
@@ -323,7 +327,7 @@ pip_library(
     ],
 )
 
-pip_library(
+python_wheel(
     name = "keras_preprocessing",
     test_only = True,
     version = "1.1.0",
@@ -333,31 +337,33 @@ pip_library(
     ],
 )
 
-pip_library(
+python_wheel(
     name = "grpcio",
     test_only = True,
     version = "1.32.0",
+    outs = ["grpc"],
     deps = [
         ":six",
     ],
 )
 
-pip_library(
+python_wheel(
     name = "google-pasta",
     test_only = True,
     version = "0.2.0",
+    outs = ["pasta"],
     deps = [
         ":six",
     ],
 )
 
-pip_library(
+python_wheel(
     name = "gast",
     test_only = True,
-    version = "0.2.2",
+    version = "0.5.3",
 )
 
-pip_library(
+python_wheel(
     name = "astor",
     test_only = True,
     version = "0.8.1",
@@ -369,10 +375,10 @@ pip_library(
     version = "1.1.0",
 )
 
-pip_library(
+python_wheel(
     name = "wrapt",
     test_only = True,
-    version = "1.12.1",
+    version = "1.13.3",
 )
 
 pip_library(
@@ -385,13 +391,13 @@ pip_library(
     ],
 )
 
-pip_library(
+python_wheel(
     name = "pytz",
     test_only = True,
     version = "2018.4",
 )
 
-pip_library(
+python_wheel(
     name = "pandas",
     test_only = True,
     version = "1.0.3",
@@ -409,14 +415,14 @@ pip_library(
     version = "47.1.1",
 )
 
-pip_library(
+python_wheel(
     name = "scipy",
     test_only = True,
     version = "1.5.2",
     zip_safe = False,
     deps = [
         ":numpy",
-        ":setuptools",
+        ":pkg_resources",
     ],
 )
 
@@ -446,23 +452,25 @@ pip_library(
     version = "1.5",
 )
 
-pip_library(
+python_wheel(
     name = "cx_oracle",
     package_name = "cx-Oracle",
+    outs = ["cx_Oracle-8.2.1.data"],
     version = "8.2.1",
 )
 
-pip_library(
+python_wheel(
     name = "argparse",
+    outs = ["argparse.py"],
     version = "1.4.0",
 )
 
-pip_library(
+python_wheel(
     name = "distlib",
     version = "0.3.2",
 )
 
-pip_library(
+python_wheel(
     name = "debugpy",
     licences = ["MIT"],
     version = "1.5.0",
