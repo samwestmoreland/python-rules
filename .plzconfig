@@ -80,7 +80,7 @@ Repeatable = true
 
 [PluginConfig "wheel_tool"]
 ConfigKey = WheelTool
-DefaultValue = //tools:wheel_resolver
+DefaultValue = //tools/wheel_resolver
 Optional = true
 
 [featureflags]
