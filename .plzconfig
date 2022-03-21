@@ -45,6 +45,7 @@ DefaultValue = pdb
 [PluginConfig "module_dir"]
 ConfigKey = ModuleDir
 DefaultValue = third_party.python
+Repeatable = true
 
 [PluginConfig "pip_tool"]
 ConfigKey = PipTool
