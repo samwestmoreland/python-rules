@@ -101,7 +101,7 @@ func appendByteArrayToFile(name string, data []byte, perm os.FileMode) error {
 }
 
 // Write writes the pex to the given output file.
-func (pw *Writer) Write(out, moduleDir string) error {
+func (pw *Writer) Write(out, moduleDir []string) error {
 	// Create file
 	f, err := os.Create("__main__.py")
 	fmt.Printf("Created __main__.py\n")

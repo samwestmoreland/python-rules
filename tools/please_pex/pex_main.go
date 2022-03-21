@@ -14,7 +14,7 @@ var opts = struct {
 	Usage              string
 	Out                string       `short:"o" long:"out" env:"OUT" description:"Output file"`
 	EntryPoint         string       `short:"e" long:"entry_point" env:"SRC" description:"Entry point to pex file"`
-	ModuleDir          string       `short:"m" long:"module_dir" description:"Python module dir to implicitly load modules from"`
+	ModuleDir          []string     `short:"m" long:"module_dir" description:"Python module dir to implicitly load modules from"`
 	TestSrcs           []string     `long:"test_srcs" env:"SRCS" env-delim:" " description:"Test source files"`
 	Interpreter        string       `short:"i" long:"interpreter" env:"TOOLS_INTERPRETER" description:"Python interpreter to use"`
 	TestRunner         string       `short:"r" long:"test_runner" default:"unittest" description:"Test runner to use"`
