@@ -59,6 +59,7 @@ except:
         this function will find its `site-packages` subdirectory depending on the
         system environment, and will return a list of full paths.
         """
+        print("getting site packages")
         sitepackages = []
         seen = set()
 
@@ -251,12 +252,14 @@ class ModuleDirImport(object):
         return module.__loader__.get_code(fullname)
 
 
-def add_module_dir_to_sys_path(dirname):
+def add_module_dir_to_sys_path(dirnames):
     """Adds the given dirname to sys.path if it's nonempty."""
-    if dirname:
-        sys.path = sys.path[:1] + [os.path.join(sys.path[0], dirname)] + sys.path[1:]
-        sys.meta_path.insert(0, ModuleDirImport(dirname))
-        print("dirname =",dirname)
+    if dirnames:
+        for dirname in dirnames:
+            dirname = os.path.join(sys.path[0], dirname)
+        sys.path = sys.path[:1] + [dirnames] + sys.path[1:]
+        sys.meta_path.insert(0, ModuleDirImport(dirnames))
+        print("dirnames =",dirnames)
 
 
 def pex_basepath(temp=False):
