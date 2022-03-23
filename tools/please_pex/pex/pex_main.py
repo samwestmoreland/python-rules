@@ -109,6 +109,8 @@ class ZipFileWithPermissions(ZipFile):
             os.chmod(targetpath, attr)
         return targetpath
 
+
+# This is a meta path finder that gets appended to sys.meta_path
 class SoImport(object):
     """So import. Much binary. Such dynamic. Wow."""
 
@@ -129,8 +131,9 @@ class SoImport(object):
                 if path:
                     importpath = path.replace('/', '.')
                     self.modules.setdefault(importpath, name)
-                    if path.startswith(MODULE_DIR):
-                        self.modules.setdefault(importpath[len(MODULE_DIR)+1:], name)
+                    for md in MODULE_DIR:
+                        if path.startswith(md):
+                            self.modules.setdefault(importpath[len(md)+1:], name)
             if self.modules:
                 self.zf = zf
 
@@ -174,7 +177,8 @@ class ModuleDirImport(object):
     """
 
     def __init__(self, module_dir=MODULE_DIR):
-        self.prefix = module_dir.replace('/', '.') + '.'
+        for md in module_dir:
+            self.prefix = md.replace('/', '.') + '.'
 
     def find_module(self, fullname, path=None):
         """Attempt to locate module. Returns self if found, None if not."""
@@ -252,6 +256,7 @@ def add_module_dir_to_sys_path(dirname):
     if dirname:
         sys.path = sys.path[:1] + [os.path.join(sys.path[0], dirname)] + sys.path[1:]
         sys.meta_path.insert(0, ModuleDirImport(dirname))
+        print("dirname =",dirname)
 
 
 def pex_basepath(temp=False):

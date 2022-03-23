@@ -101,18 +101,25 @@ func appendByteArrayToFile(name string, data []byte, perm os.FileMode) error {
 }
 
 // Write writes the pex to the given output file.
-func (pw *Writer) Write(out, moduleDir []string) error {
+func (pw *Writer) Write(out string, moduleDir []string) error {
 	// Create file
 	f, err := os.Create("__main__.py")
-	fmt.Printf("Created __main__.py\n")
 	if err != nil {
 		panic(err)
 	}
 	defer f.Close()
 
+	for i := range moduleDir {
+		moduleDir[i] = strings.ReplaceAll(moduleDir[i], ".", "/")
+		moduleDir[i] = "'" + moduleDir[i] + "'"
+	}
+
+	modStr := fmt.Sprintf("[%s]", strings.Join(moduleDir, ","))
+	fmt.Printf("modStr: %s\n", modStr)
+
 	// Write pex_main.py with some templating.
 	b := mustRead("pex_main.py")
-	b = bytes.Replace(b, []byte("__MODULE_DIR__"), []byte(strings.ReplaceAll(moduleDir, ".", "/")), 1)
+	b = bytes.Replace(b, []byte("'__MODULE_DIR__'"), []byte(modStr), 1)
 	b = bytes.Replace(b, []byte("__ENTRY_POINT__"), []byte(pw.realEntryPoint), 1)
 	b = bytes.Replace(b, []byte("__ZIP_SAFE__"), []byte(pythonBool(pw.zipSafe)), 1)
 	b = bytes.Replace(b, []byte("__PEX_STAMP__"), []byte(pw.pexStamp), 1)

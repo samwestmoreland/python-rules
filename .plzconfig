@@ -45,6 +45,7 @@ DefaultValue = pdb
 [PluginConfig "module_dir"]
 ConfigKey = ModuleDir
 DefaultValue = third_party.python
+DefaultValue = foo.bar
 Repeatable = true
 
 [PluginConfig "pip_tool"]

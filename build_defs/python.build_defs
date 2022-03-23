@@ -133,8 +133,9 @@ def python_binary(name:str, main:str, srcs:list=[], resources:list=[], out:str=N
     interpreter = interpreter or CONFIG.PYTHON.DEFAULT_INTERPRETER
     shebang = shebang or _set_shebang(interpreter, CONFIG.PYTHON.INTERPRETER_OPTIONS, site)
     zipsafe_flag = '' if zip_safe is False else '--zip_safe'
-    cmd = '$TOOLS_PEX -m "%s" %s --interpreter_options="%s" --stamp="$RULE_HASH"' % (
-        CONFIG.PYTHON.MODULE_DIR, zipsafe_flag, CONFIG.PYTHON.INTERPRETER_OPTIONS)
+    module_dirs = ' -m '.join(['%s' % s for s in CONFIG.PYTHON.MODULE_DIR])
+    interpreter_options = CONFIG.PYTHON.DEFAULT_INTERPRETER
+    cmd = f'$TOOLS_PEX -m {module_dirs} {zipsafe_flag} --interpreter_options="{interpreter_options}" --stamp="$RULE_HASH"'
 
     cmd += f'; mv __main__.py $OUT'
 
@@ -261,9 +262,9 @@ def python_test(name:str, srcs:list, data:list|dict=[], resources:list=[], deps:
     """
     interpreter = interpreter or CONFIG.PYTHON.DEFAULT_INTERPRETER
     test_runner = test_runner or CONFIG.PYTHON.TEST_RUNNER
-    module_dir = CONFIG.PYTHON.MODULE_DIR
+    module_dirs = ' -m '.join(['%s' % s for s in CONFIG.PYTHON.MODULE_DIR])
     interpreter_options = CONFIG.PYTHON.INTERPRETER_OPTIONS
-    cmd = f'$TOOLS_PEX -t -m {module_dir} -r {test_runner} --zip_safe --interpreter_options={interpreter_options} --stamp="$RULE_HASH"'
+    cmd = f'$TOOLS_PEX -t -m {module_dirs} -r {test_runner} --zip_safe --interpreter_options={interpreter_options} --stamp="$RULE_HASH"'
 
     if CONFIG.BUILD_CONFIG == 'dbg':
         # Both `pdb` and `debugpy` require the pex to be exploded to get debugging to work.
