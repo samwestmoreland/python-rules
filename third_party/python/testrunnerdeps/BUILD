@@ -6,6 +6,7 @@ filegroup(
         "//third_party/python:six",
         "//third_party/python:xmlrunner",
     ],
+    visibility = ["PUBLIC"],
 )
 
 filegroup(
@@ -23,6 +24,7 @@ filegroup(
         "//third_party/python:six",
         "//third_party/python:zipp",
     ],
+    visibility = ["PUBLIC"],
 )
 
 filegroup(
@@ -33,4 +35,5 @@ filegroup(
         "//third_party/python:parse_type",
         "//third_party/python:six",
     ],
+    visibility = ["PUBLIC"],
 )
