@@ -38,7 +38,7 @@ DefaultValue = unittest
 
 [PluginConfig "testrunner_deps"]
 ConfigKey = TestrunnerDeps
-DefaultValue = //third_party/python:unittest_bootstrap
+DefaultValue = //third_party/python/testrunnerdeps:unittest_bootstrap
 
 [PluginConfig "debugger"]
 ConfigKey = Debugger

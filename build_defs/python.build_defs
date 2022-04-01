@@ -310,7 +310,8 @@ def python_test(name:str, srcs:list, data:list|dict=[], resources:list=[], deps:
     shebang = _set_shebang(interpreter, interpreter_options, site)
 
     # If there are resources specified, they have to get built into the pex.
-    # Also add the the value of CONFIG.PYTHON.TESTRUNNER_BOOTSTRAP as a dependency.
+    # Also add the the value of CONFIG.PYTHON.TESTRUNNER_DEPS as a dependency.
+    # Also put these in a special directory so they don't clash
     deps += [CONFIG.PYTHON.TESTRUNNER_DEPS]
 
     test_cmd = f'$TEST {flags}'
