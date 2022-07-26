@@ -99,6 +99,10 @@ DefaultValue = //tools:wheel_resolver
 Optional = true
 Inherit = true
 
+[PluginConfig "coverage"]
+ConfigKey = Coverage
+DefaultValue = //third_party/python:coverage
+
 [featureflags]
 PythonWheelHashing = true
 ExcludePythonRules = true

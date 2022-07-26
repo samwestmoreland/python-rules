@@ -259,7 +259,7 @@ def python_test(name:str, srcs:list, data:list|dict=[], resources:list=[], deps:
         # Both `pdb` and `debugpy` require the pex to be exploded to get debugging to work.
         cmd = f'{cmd} -d={CONFIG.PYTHON.DEBUGGER}'.replace(' --zip_safe', '')
 
-    # If the config specifies a PYTHON_TEST_RUNNER_BOOTSTRAP target, then this ought to contain
+    # If the config specifies a PYTHON.TESTRUNNER_DEPS target, then this ought to contain
     # the test-runner library (e.g. pytest), and its transitive dependencies. In this case, we just
     # add the specified target as a dependency.
     #
@@ -269,6 +269,8 @@ def python_test(name:str, srcs:list, data:list|dict=[], resources:list=[], deps:
     if bootstrap:
         deps += [bootstrap] if bootstrap not in deps else []
         cmd = cmd.replace(' --add_test_runner_deps', '')
+
+    deps += [CONFIG.PYTHON.COVERAGE]
 
     # Use the pex tool to compress the entry point & add all the bootstrap helpers etc.
     pex_rule = build_rule(
