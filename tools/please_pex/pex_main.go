@@ -4,6 +4,7 @@ package main
 import (
 	"gopkg.in/op/go-logging.v1"
 
+	"fmt"
 	cli "github.com/peterebden/go-cli-init/v5/flags"
 	l "github.com/peterebden/go-cli-init/v5/logging"
 	"github.com/please-build/python-rules/tools/please_pex/pex"
@@ -13,21 +14,21 @@ var log = logging.MustGetLogger("please_pex")
 
 var opts = struct {
 	Usage              string
-	Verbosity          l.Verbosity `short:"v" long:"verbosity" default:"warning" description:"Verbosity of output (higher number = more output)"`
-	Out                string        `short:"o" long:"out" env:"OUT" description:"Output file"`
-	EntryPoint         string        `short:"e" long:"entry_point" env:"SRC" description:"Entry point to pex file"`
-	ModuleDir          string        `short:"m" long:"module_dir" description:"Python module dir to implicitly load modules from"`
-	TestSrcs           []string      `long:"test_srcs" env:"SRCS" env-delim:" " description:"Test source files"`
-	Interpreter        string        `short:"i" long:"interpreter" env:"TOOLS_INTERPRETER" description:"Python interpreter to use"`
-	TestRunner         string        `short:"r" long:"test_runner" default:"unittest" description:"Test runner to use"`
-	Shebang            string        `short:"s" long:"shebang" description:"Explicitly set shebang to this"`
-	Stamp              string        `long:"stamp" description:"Unique value used to derive cache directory for pex"`
-	InterpreterOptions string        `long:"interpreter_options" description:"Options-string to pass to the python interpreter"`
-	Test               bool          `short:"t" long:"test" description:"True if we're to build a test"`
-	Debug              pex.Debugger  `short:"d" long:"debug" optional:"true" optional-value:"pdb" choice:"pdb" choice:"debugpy" description:"Debugger to generate a debugging pex"`
-	Site               bool          `short:"S" long:"site" description:"Allow the pex to import site at startup"`
-	ZipSafe            bool          `long:"zip_safe" description:"Marks this pex as zip-safe"`
-	AddTestRunnerDeps  bool          `long:"add_test_runner_deps" description:"True if test-runner dependencies should be baked into test binaries"`
+	Verbosity          l.Verbosity  `short:"v" long:"verbosity" default:"warning" description:"Verbosity of output (higher number = more output)"`
+	Out                string       `short:"o" long:"out" env:"OUT" description:"Output file"`
+	EntryPoint         string       `short:"e" long:"entry_point" env:"SRC" description:"Entry point to pex file"`
+	ModuleDir          string       `short:"m" long:"module_dir" description:"Python module dir to implicitly load modules from"`
+	TestSrcs           []string     `long:"test_srcs" env:"SRCS" env-delim:" " description:"Test source files"`
+	Interpreter        string       `short:"i" long:"interpreter" env:"TOOLS_INTERPRETER" description:"Python interpreter to use"`
+	TestRunner         string       `short:"r" long:"test_runner" default:"unittest" description:"Test runner to use"`
+	Shebang            string       `short:"s" long:"shebang" description:"Explicitly set shebang to this"`
+	Stamp              string       `long:"stamp" description:"Unique value used to derive cache directory for pex"`
+	InterpreterOptions string       `long:"interpreter_options" description:"Options-string to pass to the python interpreter"`
+	Test               bool         `short:"t" long:"test" description:"True if we're to build a test"`
+	Debug              pex.Debugger `short:"d" long:"debug" optional:"true" optional-value:"pdb" choice:"pdb" choice:"debugpy" description:"Debugger to generate a debugging pex"`
+	Site               bool         `short:"S" long:"site" description:"Allow the pex to import site at startup"`
+	ZipSafe            bool         `long:"zip_safe" description:"Marks this pex as zip-safe"`
+	AddTestRunnerDeps  bool         `long:"add_test_runner_deps" description:"True if test-runner dependencies should be baked into test binaries"`
 }{
 	Usage: `
 please_pex is a tool to create .pex files for Python.
@@ -41,6 +42,7 @@ dependent code as a self-contained self-executable environment.
 func main() {
 	cli.ParseFlagsOrDie("please_pex", &opts, nil)
 	l.InitLogging(opts.Verbosity)
+	fmt.Println("Hello")
 	w := pex.NewWriter(
 		opts.EntryPoint, opts.Interpreter, opts.InterpreterOptions, opts.Stamp,
 		opts.ZipSafe, !opts.Site)
@@ -53,6 +55,7 @@ func main() {
 	if len(opts.Debug) > 0 {
 		w.SetDebugger(opts.Debug)
 	}
+	fmt.Println("Calling Write now")
 	if err := w.Write(opts.Out, opts.ModuleDir); err != nil {
 		log.Fatalf("%s", err)
 	}

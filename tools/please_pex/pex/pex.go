@@ -181,6 +181,13 @@ func (pw *Writer) Write(out, moduleDir string) error {
 	// Always write pex_main.py, with some templating.
 	b := mustRead("pex_main.py")
 	b = bytes.Replace(b, []byte("__MODULE_DIR__"), []byte(strings.ReplaceAll(moduleDir, ".", "/")), 1)
+	// verify that the substitution happened successfully
+	if bytes.Contains(b, []byte("__MODULE_DIR__")) {
+		fmt.Println("ERROR: __MODULE_DIR__ not replaced in pex_main.py")
+	} else {
+		fmt.Println("INFO: __MODULE_DIR__ replaced in pex_main.py with", moduleDir)
+	}
+
 	b = bytes.Replace(b, []byte("__ENTRY_POINT__"), []byte(pw.realEntryPoint), 1)
 	b = bytes.Replace(b, []byte("__ZIP_SAFE__"), []byte(pythonBool(pw.zipSafe)), 1)
 	b = bytes.Replace(b, []byte("__PEX_STAMP__"), []byte(pw.pexStamp), 1)

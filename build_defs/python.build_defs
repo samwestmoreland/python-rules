@@ -161,7 +161,7 @@ def python_binary(name:str, main:str, srcs:list=[], resources:list=[], out:str=N
         cmd=cmd,
         requires=['py', 'pex'],
         pre_build=_handle_zip_safe if zip_safe is None else None,
-        deps=deps,
+        deps=None,
         needs_transitive_deps=True,  # Needed so we can find anything with zip_safe=False on it.
         output_is_complete=True,
         tools={

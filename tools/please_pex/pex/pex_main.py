@@ -6,6 +6,7 @@ import os
 import runpy
 import sys
 
+print("HELLO")
 
 PY_VERSION = sys.version_info
 
