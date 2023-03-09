@@ -92,6 +92,8 @@ ENTRY_POINT = '__ENTRY_POINT__'
 ZIP_SAFE = __ZIP_SAFE__
 PEX_STAMP = '__PEX_STAMP__'
 
+print("just set MODULE_DIR to", MODULE_DIR)
+
 # Workaround for https://bugs.python.org/issue15795
 class ZipFileWithPermissions(ZipFile):
     """ Custom ZipFile class handling file permissions. """
