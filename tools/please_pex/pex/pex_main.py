@@ -136,10 +136,10 @@ class SoImport(object):
             if self.modules:
                 self.zf = zf
 
-    def find_module(self, fullname, path=None):
+    def find_spec(self, fullname, path=None, target=None):
         """Attempt to locate module. Returns self if found, None if not."""
         if fullname in self.modules:
-            return self
+            return machinery.ModuleSpec(fullname, self)
 
     def load_module(self, fullname):
         """Actually load a module that we said we'd handle in find_module."""
